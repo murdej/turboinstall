@@ -295,7 +295,7 @@ simulate = False
 ## main app code
 cmd = sys.argv[1] if len(sys.argv) > 1 else None
 # isRoot = len(sys.argv) > 1 and sys.argv[1] == '--root'
-# print '---- start ----'
+# print '---- start ----' 
 if cmd == '--apps':
     apps = []
     for isc in installScripts:
