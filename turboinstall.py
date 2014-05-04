@@ -2,6 +2,12 @@
 from subprocess import Popen, PIPE, call
 import re, sys, string, os
 
+WARNING = '\033[93m'
+FAIL = '\033[91m'
+ENDC = '\033[0m'
+OKBLUE = '\033[94m'
+OKGREEN = '\033[92m'
+
 def findApp(names):
     output = Popen(['whereis'] + names, stdout=PIPE)
     app = None
@@ -30,6 +36,8 @@ def findInstallScript(app, arch):
                 return r
     return None
 
+
+
 class InstallPlan:
     runPre = []
     debUrl = []
@@ -39,7 +47,8 @@ class InstallPlan:
 def addInstallPlan(app, arch):
     isc = findInstallScript(app, arch)
     if isc == None:
-        print 'Can not find app ' + app + ' for architecture ' + arch
+        print
+        print FAIL + 'Can not find app ' + app + ' for architecture ' + arch + ENDC
         exit()
     else:
         # install deps
@@ -56,8 +65,16 @@ def addInstallPlan(app, arch):
         print ' ' + app,
 
 def shellRun(cmd):
-    print string.join(cmd, ' ') # 'shellRun: ' + 
-    if not simulate: call(cmd)
+    if type(cmd) is list :
+        print OKGREEN + string.join(cmd, ' ') + ENDC # 'shellRun: ' + 
+    else:
+        print OKGREEN + cmd + ENDC
+            
+    if not simulate: 
+        if type(cmd) is list :
+            call(cmd)
+        else:
+            os.system(cmd)
 
 def runInstallPlan():
     # runPre
@@ -69,6 +86,12 @@ def runInstallPlan():
         ppa = ppa[0]
         shellRun(['add-apt-repository', 'ppa:' + ppa])
     
+    # debRepo
+    for r in installPlan['debRepo']:
+        shellRun(['add-apt-repository', r[0]])
+        if len(r) > 1 :
+            shellRun('wget -q -O - "' + r[1] + '" | apt-key add -')
+        
     if len(installPlan['ppaRepo']) + len(installPlan['debRepo']) > 0:
         shellRun(['apt-get', 'update'])
     
@@ -179,6 +202,34 @@ installScripts = [
             [ 'debUrl', 'https://dl.google.com/dl/earth/client/current/google-earth-stable_current_i386.deb' ]
         ]
     },
+    ## Esmska
+    {
+        'app' : 'esmska',
+        'arch' : ['all'],
+        'script' : [
+            [ 'debRepo', 'deb http://download.opensuse.org/repositories/Java:/esmska/common-deb/ ./', 'http://download.opensuse.org/repositories/Java:/esmska/common-deb/Release.key' ],
+            [ 'debApt', 'esmska' ]
+        ]
+    },
+    ## Oracle java 8
+    {
+        'app' : 'oracle-java-8',
+        'script' : [
+            [ 'ppaRepo', 'webupd8team/java' ],
+            [ 'debApt', 'oracle-java8-installer']
+        ]
+    },
+    {
+        'app' : 'oracle-java',
+        'dep' : ['oracle-java-8']
+    },
+    ## GetDeb repository
+    {
+        'app' : 'rep-getdeb',
+        'script' : [
+            [ 'debUrl', 'http://archive.getdeb.net/install_deb/getdeb-repository_0.1-1~getdeb1_all.deb' ]
+        ]
+    },
     ## Etc
     {
         'app' : 'apt-upgrade',
@@ -255,18 +306,18 @@ elif cmd == '--root' or cmd == "--sh":
     arch = callO(['uname', '-m']).strip()
     simulate = cmd == "--sh"
     for app in sys.argv[2:]:
-        print 'Prepar installing ' + app + ': ',
+        print OKBLUE + 'Prepar installing ' + app + ENDC + ': ',
         addInstallPlan(app, arch)
         print
         
-    print installPlan
+    # print installPlan
     runInstallPlan()
 
 else:
-    print 'no root'
+    print 'You are not root, log as root'
     apps = ['sudo', 'kdesudo', 'gksudo', 'sudo']
     app = findApp(apps)
-    print app
+    # print app
     # call([app, sys.argv[0] + " --root " + string.join(sys.argv[1:])])
     call([app, sys.argv[0], "--root"] + sys.argv[1:])
 
