@@ -20,13 +20,13 @@ Usage
 Download and prepare
 
 ```bash
-wget https://github.com/murdej/turboinstall/raw/master/turboinstall.py`
+wget https://github.com/murdej/turboinstall/raw/master/turboinstall.py
 chmod a+x turboinstall.py
 ```
 Show installable applications
 
 ```bash
-./turboinstall.py
+./turboinstall.py --apps
 ```
 Install application
 
