@@ -198,6 +198,7 @@ installScripts = [
         'app' : 'google-earth',
         'arch' : ['x86_64'],
         'script' : [
+            [ 'debApt', 'lsb-core' ],
             [ 'debUrl', 'https://dl.google.com/dl/earth/client/current/google-earth-stable_current_amd64.deb' ]
         ]
     },
@@ -236,6 +237,22 @@ installScripts = [
             [ 'debUrl', 'http://archive.getdeb.net/install_deb/getdeb-repository_0.1-1~getdeb1_all.deb' ]
         ]
     },
+    ## Google talk plugin
+    {
+        'app' : 'google-talk-plugin',
+        'arch' : ['i386'],
+        'script' : [
+            [ 'debUrl', 'https://dl.google.com/linux/direct/google-talkplugin_current_i386.deb' ]
+        ]
+    },
+    {
+        'app' : 'google-talk-plugin',
+        'arch' : ['x86_64'],
+        'script' : [
+            [ 'debUrl', 'https://dl.google.com/linux/direct/google-talkplugin_current_amd64.deb' ]
+        ]
+    },
+    
     ## Etc
     {
         'app' : 'apt-upgrade',
