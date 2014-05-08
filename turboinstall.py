@@ -156,7 +156,13 @@ installScripts = [
             [ 'debUrl', 'http://download.teamviewer.com/download/teamviewer_linux.deb' ]
         ]
     },
-    #todo: 64bit
+    {
+        'app' : 'teamviewer',
+        'arch' : ['x86_64'],
+        'script' : [
+            [ 'debUrl', 'http://download.teamviewer.com/download/teamviewer_linux_x64.deb' ]
+        ]
+    },
     ## Clementine
     {
         'app' : 'clementine',
