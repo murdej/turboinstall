@@ -298,7 +298,14 @@ installScripts = [
         'script' : [
             [ 'debApt', 'software-center' ]
         ],
-    },	
+    },
+    {
+        'app': 'sweethome3d',
+        'deps': [ 'rep-getdeb' ],
+        'script' : [
+            [ 'debApt', 'sweethome3d' ]
+        ]
+    },
     ## Packets
     {
         'app': 'murdej-bfu',
@@ -332,6 +339,7 @@ if cmd == '--apps':
     for isc in installScripts:
         if isc['app'] not in apps:
             apps.append(isc['app'])
+    apps.sort()
     print string.join(apps, '\n')
 elif cmd == '--root' or cmd == "--sh":
     arch = callO(['uname', '-m']).strip()
