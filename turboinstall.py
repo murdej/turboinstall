@@ -124,6 +124,13 @@ archAlternative = {
 }
 
 installScripts = [
+    {
+        'app' : 'arch-i386',
+        'arch' : ['x86_64'],
+        'script' : [
+            [ 'runPre', 'dpkg', '--add-architecture', 'i386' ]
+        ]
+    },
     ## Google Chrome
     {
         'app' : 'google-chrome',
@@ -160,8 +167,9 @@ installScripts = [
         'app' : 'teamviewer',
         'arch' : ['x86_64'],
         'script' : [
-            [ 'debUrl', 'http://download.teamviewer.com/download/teamviewer_linux_x64.deb' ]
-        ]
+            [ 'debUrl', 'http://download.teamviewer.com/download/teamviewer_linux.deb' ]
+        ],
+        'dep' : [ 'arch-i386' ]
     },
     ## Clementine
     {
