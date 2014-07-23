@@ -306,6 +306,13 @@ installScripts = [
             [ 'debApt', 'sweethome3d' ]
         ]
     },
+    {
+        'app': 'copy-com',
+        'script' : [
+            [ 'ppaRepo', 'paolorotolo/copy' ],
+            [ 'debApt', 'copy' ]
+        ]
+    }
     ## Packets
     {
         'app': 'murdej-bfu',
