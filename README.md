@@ -40,4 +40,4 @@ Show instalation shell command without installation
 ./turboinstall.py --sh app1 app2 ...
 ```
 
-
+Proposals for applications, ideas, bug reports sent in by mail or issues vit.peprnicek et gmail dut com.

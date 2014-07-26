@@ -154,6 +154,15 @@ installScripts = [
             [ 'debUrl', 'http://download.skype.com/linux/skype-ubuntu-precise_4.2.0.13-1_i386.deb' ]
         ]
     },
+    { 
+        'app' : 'skype',
+        'arch' : ['x86_64'],
+        'script' : [
+            [ 'debUrl', 'http://download.skype.com/linux/skype-ubuntu-precise_4.2.0.13-1_i386.deb' ]
+        ],
+        'deps': ['arch-i386']
+    },
+
     #todo: 64bit
     ## TeamViewer
     {
