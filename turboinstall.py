@@ -312,7 +312,7 @@ installScripts = [
             [ 'ppaRepo', 'paolorotolo/copy' ],
             [ 'debApt', 'copy' ]
         ]
-    }
+    },
     ## Packets
     {
         'app': 'murdej-bfu',
