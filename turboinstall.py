@@ -291,6 +291,12 @@ installScripts = [
         ],
     },	
     {
+        'app': 'ubuntu-restricted-extras',
+        'script' : [
+            [ 'debApt', 'ubuntu-restricted-extras' ]
+        ],
+    },	
+    {
         'app': 'gimp',
         'script' : [
             [ 'debApt', 'gimp' ]
