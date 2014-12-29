@@ -134,6 +134,7 @@ installScripts = [
     ## Google Chrome
     {
         'app' : 'google-chrome',
+        'title' : 'Google Chrome',
         'arch' : ['i386'],
         'script' : [
             [ 'debUrl', 'https://dl.google.com/linux/direct/google-chrome-stable_current_i386.deb' ]
@@ -269,7 +270,15 @@ installScripts = [
             [ 'debUrl', 'https://dl.google.com/linux/direct/google-talkplugin_current_amd64.deb' ]
         ]
     },
-    
+    ## Kody (xbmc)
+    {
+        'title': 'Kody (XBMC)',
+        'app': 'kody',
+        'script' : [
+            [ 'ppaRepo', 'team-xbmc/ppa' ],
+            [ 'debApt', 'kodi' ]
+        ]
+    },
     ## Etc
     {
         'app' : 'apt-upgrade',
@@ -287,13 +296,15 @@ installScripts = [
     {
         'app': 'kubuntu-restricted-extras',
         'script' : [
-            [ 'debApt', 'kubuntu-restricted-extras' ]
+            [ 'debApt', 'kubuntu-restricted-extras' ],
+            [ 'runPost', '/usr/share/doc/libdvdread4/install-css.sh' ]
         ],
     },	
     {
         'app': 'ubuntu-restricted-extras',
         'script' : [
-            [ 'debApt', 'ubuntu-restricted-extras' ]
+            [ 'debApt', 'ubuntu-restricted-extras' ],
+            [ 'runPost', '/usr/share/doc/libdvdread4/install-css.sh' ]
         ],
     },	
     {
@@ -323,6 +334,7 @@ installScripts = [
     },
     {
         'app': 'copy-com',
+        # 'description': 'Cloud disk\nbla bla bla',
         'script' : [
             [ 'ppaRepo', 'paolorotolo/copy' ],
             [ 'debApt', 'copy' ]
@@ -358,11 +370,25 @@ cmd = sys.argv[1] if len(sys.argv) > 1 else None
 # print '---- start ----' 
 if cmd == '--apps':
     apps = []
+    info = {}
     for isc in installScripts:
-        if isc['app'] not in apps:
+        appName = isc['app']
+        if appName not in apps:
             apps.append(isc['app'])
+            info[appName] = { 'title': '', 'description': '' }
+
+        if 'title' in isc:
+            info[appName]['title'] = isc['title']
+
+        if 'description' in isc:
+            info[appName]['description'] = isc['description']
+
     apps.sort()
-    print string.join(apps, '\n')
+    # print string.join(apps, '\n')
+    for appName in apps:
+        print OKBLUE + appName + ENDC + (" - " + info[appName]['title'] if info[appName]['title'] else '')
+        if info[appName]['description']:
+            print '\t' + info[appName]['description'].replace('\n', '\n\t')
 elif cmd == '--root' or cmd == "--sh":
     arch = callO(['uname', '-m']).strip()
     simulate = cmd == "--sh"
