@@ -254,6 +254,15 @@
 			[ 'debApt', 'winetricks' ]
 		]
 	},
+	{
+		'app': 'vineyard',
+		'script' : [
+			[ 'ppaRepo', 'cybolic/ppa' ],
+			[ 'debApt', 'vineyard' ]
+		]
+	},
+        {
+        }
 	## Packets
 	{
 		'app': 'murdej-bfu',
