@@ -47,8 +47,8 @@ class InstallPlan:
 def addInstallPlan(app, arch):
     isc = findInstallScript(app, arch)
     if isc == None:
-        print
-        print FAIL + 'Can not find app ' + app + ' for architecture ' + arch + ENDC
+        print()
+        print(FAIL + 'Can not find app ' + app + ' for architecture ' + arch + ENDC)
         exit()
     else:
         # install deps
@@ -62,13 +62,13 @@ def addInstallPlan(app, arch):
                 installPlan[cmd[0]].append(cmd[1:])
         
         installPlan['applied'].append(app)
-        print ' ' + app,
+        print(' ' + app, end=' ')
 
 def shellRun(cmd):
     if type(cmd) is list :
-        print OKGREEN + string.join(cmd, ' ') + ENDC # 'shellRun: ' + 
+        print(OKGREEN + string.join(cmd, ' ') + ENDC) # 'shellRun: ' + 
     else:
-        print OKGREEN + cmd + ENDC
+        print(OKGREEN + cmd + ENDC)
             
     if not simulate: 
         if type(cmd) is list :
@@ -173,14 +173,14 @@ installScripts = [
 		'app' : 'teamviewer',
 		'arch' : ['i386'],
 		'script' : [
-			[ 'debUrl', 'http://download.teamviewer.com/download/teamviewer_linux.deb' ]
+			[ 'debUrl', 'https://download.teamviewer.com/download/linux/teamviewer_i386.deb' ]
 		]
 	},
 	{
 		'app' : 'teamviewer',
 		'arch' : ['x86_64'],
 		'script' : [
-			[ 'debUrl', 'http://download.teamviewer.com/download/teamviewer_linux.deb' ]
+			[ 'debUrl', 'https://download.teamviewer.com/download/linux/teamviewer_amd64.deb' ]
 		],
 		'dep' : [ 'arch-i386' ]
 	},
@@ -300,6 +300,14 @@ installScripts = [
 			[ 'debUrl', 'http://download.kerio.com/cz/dwn/kerio-control-vpnclient-linux-amd64.deb' ]
 		]
 	},
+	## Steam
+	{
+		'app' : 'steam',
+		'title' : 'Steam client',
+		'script' : [
+			[ 'debUrl', 'https://steamcdn-a.akamaihd.net/client/installer/steam.deb' ]
+		]
+	},
 	## Etc
 	{
 		'app' : 'apt-upgrade',
@@ -317,15 +325,15 @@ installScripts = [
 	{
 		'app': 'kubuntu-restricted-extras',
 		'script' : [
-			[ 'debApt', 'kubuntu-restricted-extras' ],
-			[ 'runPost', '/usr/share/doc/libdvdread4/install-css.sh' ]
+			[ 'debApt', 'kubuntu-restricted-extras' ]
+			#[ 'runPost', '/usr/share/doc/libdvdread4/install-css.sh' ]
 		],
 	},	
 	{
 		'app': 'ubuntu-restricted-extras',
 		'script' : [
 			[ 'debApt', 'ubuntu-restricted-extras' ],
-			[ 'runPost', '/usr/share/doc/libdvdread4/install-css.sh' ]
+			#[ 'runPost', '/usr/share/doc/libdvdread4/install-css.sh' ]
 		],
 	},	
 	{
@@ -434,9 +442,9 @@ if cmd == '--apps' or cmd == None:
     apps.sort()
     # print string.join(apps, '\n')
     for appName in apps:
-        print OKBLUE + appName + ENDC + (" - " + info[appName]['title'] if info[appName]['title'] else '')
+        print(OKBLUE + appName + ENDC + (" - " + info[appName]['title'] if info[appName]['title'] else ''))
         if info[appName]['description']:
-            print '\t' + info[appName]['description'].replace('\n', '\n\t')
+            print('\t' + info[appName]['description'].replace('\n', '\n\t'))
             
     # print "Type " + sys.argv[0] + 
     
@@ -444,15 +452,15 @@ elif cmd == '--root' or cmd == "--sh":
     arch = callO(['uname', '-m']).strip()
     simulate = cmd == "--sh"
     for app in sys.argv[2:]:
-        print OKBLUE + 'Prepar installing ' + app + ENDC + ': ',
+        print(OKBLUE + 'Prepar installing ' + app + ENDC + ': ', end=' ')
         addInstallPlan(app, arch)
-        print
+        print()
         
     # print installPlan
     runInstallPlan()
 
 else:
-    print 'You are not root, log as root'
+    print('You are not root, log as root')
     apps = ['sudo', 'kdesudo', 'gksudo', 'sudo']
     app = findApp(apps)
     # print app

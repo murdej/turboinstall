@@ -47,14 +47,14 @@
 		'app' : 'teamviewer',
 		'arch' : ['i386'],
 		'script' : [
-			[ 'debUrl', 'http://download.teamviewer.com/download/teamviewer_linux.deb' ]
+			[ 'debUrl', 'https://download.teamviewer.com/download/linux/teamviewer_i386.deb' ]
 		]
 	},
 	{
 		'app' : 'teamviewer',
 		'arch' : ['x86_64'],
 		'script' : [
-			[ 'debUrl', 'http://download.teamviewer.com/download/teamviewer_linux.deb' ]
+			[ 'debUrl', 'https://download.teamviewer.com/download/linux/teamviewer_amd64.deb' ]
 		],
 		'dep' : [ 'arch-i386' ]
 	},
@@ -174,6 +174,14 @@
 			[ 'debUrl', 'http://download.kerio.com/cz/dwn/kerio-control-vpnclient-linux-amd64.deb' ]
 		]
 	},
+	## Steam
+	{
+		'app' : 'steam',
+		'title' : 'Steam client',
+		'script' : [
+			[ 'debUrl', 'https://steamcdn-a.akamaihd.net/client/installer/steam.deb' ]
+		]
+	},
 	## Etc
 	{
 		'app' : 'apt-upgrade',
@@ -191,15 +199,15 @@
 	{
 		'app': 'kubuntu-restricted-extras',
 		'script' : [
-			[ 'debApt', 'kubuntu-restricted-extras' ],
-			[ 'runPost', '/usr/share/doc/libdvdread4/install-css.sh' ]
+			[ 'debApt', 'kubuntu-restricted-extras' ]
+			#[ 'runPost', '/usr/share/doc/libdvdread4/install-css.sh' ]
 		],
 	},	
 	{
 		'app': 'ubuntu-restricted-extras',
 		'script' : [
 			[ 'debApt', 'ubuntu-restricted-extras' ],
-			[ 'runPost', '/usr/share/doc/libdvdread4/install-css.sh' ]
+			#[ 'runPost', '/usr/share/doc/libdvdread4/install-css.sh' ]
 		],
 	},	
 	{
@@ -261,8 +269,6 @@
 			[ 'debApt', 'vineyard' ]
 		]
 	},
-        {
-        }
 	## Packets
 	{
 		'app': 'murdej-bfu',
