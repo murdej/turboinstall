@@ -12,7 +12,7 @@ def findApp(names):
     output = Popen(['whereis'] + names, stdout=PIPE)
     app = None
     for line in output.stdout:
-        tmp = re.split('\\s+', line)
+        tmp = re.split('\\s+', line.decode("utf-8"))
         if len(tmp) > 1:
             app = tmp[1]
             break
@@ -21,7 +21,7 @@ def findApp(names):
 
 def callO(app):
     output = Popen(app, stdout=PIPE)
-    res = output.stdout.read()
+    res = output.stdout.read().decode("utf-8")
     output.stdout.close()
     return res
 
@@ -66,7 +66,7 @@ def addInstallPlan(app, arch):
 
 def shellRun(cmd):
     if type(cmd) is list :
-        print(OKGREEN + string.join(cmd, ' ') + ENDC) # 'shellRun: ' + 
+        print(OKGREEN + ' '.join(cmd) + ENDC) # 'shellRun: ' + 
     else:
         print(OKGREEN + cmd + ENDC)
             
